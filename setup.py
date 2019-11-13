@@ -15,7 +15,7 @@ URL = 'https://github.com/yarden_livnat/axisproj'
 EMAIL = 'yarden@sci.utah.edu'
 AUTHOR = 'Yarden Livnat'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '0.1.0'
+VERSION = None
 
 REQUIRED = [
     'numpy', 'sklearn', 'scipy', 'cvxpy', 'nudged'
