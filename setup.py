@@ -38,11 +38,4 @@ setup(
     install_requires=[
         'numpy', 'sklearn', 'scipy', 'cvxpy', 'nudged'
     ],
-    # test_suite='nose.collector',
-    # tests_require=['nose'],
-    entry_points={
-        # 'console_scripts': [
-        #     'regulus=regulus.command_line:main'
-        # ],
-    }
 )

@@ -28,4 +28,4 @@ is generated using the `precision_recall.histogram` functor.
 This package is a rewrite of the LLNL code described in 
 
 "Exploring High-Dimensional Structure via Axis-Aligned Decomposition of Linear Projections
-Linear Axis-Aligned", J. J. Thiagarajan, S. Liu, K. N. Ramamurthy and P.-T. Bremer
+Linear Axis-Aligned", J. J. Thiagarajan, S. Liu, K. N. Ramamurthy and P.-T. Bremer, EuroVis 2018
