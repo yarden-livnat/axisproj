@@ -1,6 +1,8 @@
 import numpy as np
-from scipy.linalg import eig, sqrtm, norm, svd,eigh
 import nudged
+from scipy.linalg import eig, sqrtm, norm
+
+from .utils import adjust
 
 
 def find_linear_projections(X, d, objective, iters=20):
@@ -40,14 +42,6 @@ def find_linear_projections(X, d, objective, iters=20):
         if i == 0 or dissimilar(V, selected, X, objective.threshold):
             selected.append(V)
     return selected
-
-
-def adjust(M):
-    v, *_ = eig(M)
-    mv = np.min(np.real(v))
-    if mv < 0:
-        M = M - mv * np.eye(M.shape[0])
-    return M
 
 
 def dissimilar(V, projections, X, min_threshold, err_threshold=0.8):

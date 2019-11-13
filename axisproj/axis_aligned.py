@@ -22,7 +22,6 @@ def find_axis_aligned(X, projections, max_size, knn):
 
 def optimal_projection(X, V, global_omega, max_size, knn, delta=0.8):
     omega = []
-    beta = []
     Z = []
     d = X.shape[0]
 
@@ -43,35 +42,37 @@ def optimal_projection(X, V, global_omega, max_size, knn, delta=0.8):
             alpha.append(indices[index])
             indices = np.delete(indices, index)
 
-        if alpha[1] < alpha[0]:
-            alpha = (alpha[1], alpha[0])
-        else:
+        # change alpha into a tuple so that it can be used as a dictionary key
+        if alpha[0] < alpha[1]:
             alpha = (alpha[0], alpha[1])
+        else:
+            alpha = (alpha[1], alpha[0])
 
         # distortion
-        e = np.linalg.norm(C[:,alpha[0]] + C[:,alpha[1]] - B)
+        e = norm(C[:,alpha[0]] + C[:,alpha[1]] - B)
 
-        # stop if it is not better than any of the AL projections for U
+        # stop if it is not much better than any of the axis projections for the current V
         if any(e > delta * norm(C[:,z[0]] + C[:,z[1]] - B) for z in omega):
             break
 
         # before accepting alpha, check if any previous alpha (in global omega) is good enough
         e /= delta
         for a in global_omega:
-            ze = np.linalg.norm(C[:, a[0]] + C[:, a[1]] - B)
+            ze = norm(C[:, a[0]] + C[:, a[1]] - B)
             if ze < e:
                 alpha = a
                 e = ze
 
-        # step e
-        Z.append(make_basis(d, alpha))
-        beta = project(V, Z)
-        if beta is None:
-            Z.pop()
-            break
-
         # step d
         omega.append(alpha)
+        Z.append(make_basis(d, alpha))
+
+        # step e
+        beta = project(V, Z)
+        if beta is None:
+            omega.pop()
+            Z.pop()
+            break
 
         R = V.dot(V.T)
         for beta_i, Zi in zip(beta, Z):

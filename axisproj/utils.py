@@ -1,6 +1,14 @@
 import numpy as np
-from numpy.linalg import norm
+from numpy.linalg import norm, eig
 from sklearn.neighbors import kneighbors_graph
+
+
+def adjust(M):
+    v, *_ = eig(M)
+    mv = np.min(np.real(v))
+    if mv < 0:
+        M = M - mv * np.eye(M.shape[0])
+    return M
 
 
 def compute_CB(X, Y, knn):
@@ -22,3 +30,4 @@ def make_basis(d, alpha):
     Z[alpha[0], 0] = 1
     Z[alpha[1], 1] = 1
     return Z
+
