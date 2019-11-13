@@ -4,7 +4,7 @@ Axis-Aligned Decomposition of Linear Projections
 ## Installation 
 ```pip install axisproj```
 
-In a development environment use
+#### From source:
 `pip install -e .` or `python setup.py`
 
 
