@@ -1,0 +1,10 @@
+cvxpy
+nudged
+numpy
+pymanopt
+scipy
+sklearn
+
+
+
+
