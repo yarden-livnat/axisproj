@@ -1,5 +1,5 @@
 from .optimal import optimal
-from .projections import find_linear_projections
+from .linear import find_linear_projections
 from .axis_aligned import find_axis_aligned
 from .evidence import compute_evidence
 from .precision_recall import histogram
