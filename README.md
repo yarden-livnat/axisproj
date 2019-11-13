@@ -2,10 +2,10 @@
 Axis-Aligned Decomposition of Linear Projections
 
 ## Installation 
-```python setup.py```
+```pip install axisproj```
 
 In a development environment use
-```pip install -e .```
+`pip install -e .` or `python setup.py`
 
 
 ## Usage
