@@ -20,11 +20,11 @@ def find_axis_aligned(X, projections, max_size, knn):
     return list(ap.values())
 
 
-def optimal_projection(X, V, global_omega, max_size, knn, delta=0.8):
+def optimal_projection(X, V, global_omega, max_size, knn, delta=0.9):
     omega = []
     Z = []
     d = X.shape[0]
-
+    r_norm = None
     Y = V.T.dot(X)
     while len(omega) < max_size:
         C, B = compute_CB(X, Y, knn)
@@ -52,7 +52,7 @@ def optimal_projection(X, V, global_omega, max_size, knn, delta=0.8):
         e = norm(C[:,alpha[0]] + C[:,alpha[1]] - B)
 
         # stop if it is not much better than any of the axis projections for the current V
-        if any(e > delta * norm(C[:,z[0]] + C[:,z[1]] - B) for z in omega):
+        if any(e >= delta * norm(C[:,z[0]] + C[:,z[1]] - B) for z in omega):
             break
 
         # before accepting alpha, check if any previous alpha (in global omega) is good enough
@@ -77,6 +77,12 @@ def optimal_projection(X, V, global_omega, max_size, knn, delta=0.8):
         R = V.dot(V.T)
         for beta_i, Zi in zip(beta, Z):
             R -= beta_i * Zi.dot(Zi.T)
+
+        # stop if norm(R) is getting worse
+        rn = norm(R)
+        if r_norm is not None and r_norm < rn:
+            break
+        r_norm = rn
 
         # step f
         u, *_ = svd(R)
