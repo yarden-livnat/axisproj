@@ -11,7 +11,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'axisproj'
 DESCRIPTION = 'Axis-Aligned Decomposition of Linear Projections.'
-URL = 'https://github.com/yarden_livnat/axisproj'
+URL = 'https://github.com/yarden-livnat/axisproj'
 EMAIL = 'yarden@sci.utah.edu'
 AUTHOR = 'Yarden Livnat'
 REQUIRES_PYTHON = '>=3.7.0'
